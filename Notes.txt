@@ -1,0 +1,11 @@
+# Navigate to project
+cd ExoGlove-YOLOv8
+
+# Activate environment
+source exoglove_env/bin/activate
+
+# Quick start
+python3 quick_start_pi.py
+
+# Run inference
+python3 exoglove_pi_inference.py
