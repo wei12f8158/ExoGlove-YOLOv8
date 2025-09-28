@@ -9,3 +9,12 @@ python3 quick_start_pi.py
 
 # Run inference
 python3 exoglove_pi_inference.py
+
+
+# Convert to rpk
+
+python3 export_imx.py
+
+imx500-package -i ~/sensorFusion/IMX500/yolov8n_imx_model/packerOut.zip -o final_output
+
+deactivate
