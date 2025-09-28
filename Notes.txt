@@ -11,10 +11,15 @@ python3 quick_start_pi.py
 python3 exoglove_pi_inference.py
 
 
-# Convert to rpk
+# Convert to rpk (Fixed approaches)
+python3 export_simple_imx.py
+# OR
+python3 export_imx_fixed.py
 
-python3 export_imx.py
+# Alternative: Use Sony's online platform
+# 1. Visit: https://developer.sony.com/imx500/
+# 2. Upload best.pt or best.onnx
+# 3. Download .rpk file
 
-imx500-package -i ~/sensorFusion/IMX500/yolov8n_imx_model/packerOut.zip -o final_output
-
-deactivate
+# Manual conversion (if tools available)
+# imx500-package -i ~/sensorFusion/IMX500/yolov8n_imx_model/packerOut.zip -o final_output
