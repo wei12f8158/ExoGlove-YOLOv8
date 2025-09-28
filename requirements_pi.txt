@@ -1,0 +1,23 @@
+# ExoGlove Pi Deployment Requirements
+# Optimized for Raspberry Pi 5 + IMX500
+
+# Core ML framework
+ultralytics>=8.0.0
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Computer Vision
+opencv-python>=4.8.0
+opencv-contrib-python>=4.8.0
+
+# Image processing
+Pillow>=9.0.0
+numpy>=1.21.0
+
+# Utilities
+PyYAML>=6.0
+tqdm>=4.64.0
+
+# Optional: For better performance on Pi
+# onnxruntime>=1.15.0  # Uncomment if using ONNX export
+# openvino>=2023.0.0   # Uncomment if using OpenVINO
