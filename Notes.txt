@@ -1,27 +1,20 @@
+sshpass -p '115049' ssh wei@192.168.1.84
+
 # Navigate to project
 cd ExoGlove-YOLOv8
 
 # Activate environment
 source exoglove_env/bin/activate
 
-# Quick start
-python3 quick_start_pi.py
-
-# Run inference
-python3 exoglove_pi_inference.py
-
-
 # Convert to rpk (Your original method - FIXED for Pi)
 # Run this on Raspberry Pi (IMX export only works on Linux)
 python3 export_imx_pi.py
 
 # Then create .rpk package
-imx500-package -i ~/sensorFusion/IMX500/yolov8n_imx_model/packerOut.zip -o final_output
+imx500-package -i best_imx_model/packerOut.zip -o final_output
 
-# Alternative: Use Sony's online platform
-# 1. Visit: https://developer.sony.com/imx500/
-# 2. Upload best.pt or best.onnx
-# 3. Download .rpk file
+# Method 1: Python Picamera2 (Basic)
+python3 exoglove_picamera2_simple.py
 
-# Manual conversion (if tools available)
-# imx500-package -i ~/sensorFusion/IMX500/yolov8n_imx_model/packerOut.zip -o final_output
+Method 2: rpicam-vid + IMX500 NPU (Recommended)
+rpicam-vid --width 640 --height 640 --mode 2028:1520:10:U --post-process-file exoglove_imx500_config.json --output /tmp/exoglove_output.h264 --timeout 10000
