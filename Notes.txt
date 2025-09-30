@@ -13,11 +13,21 @@ python3 export_imx_pi.py
 # Then create .rpk package
 imx500-package -i best_imx_model/packerOut.zip -o final_output
 
-# Official Picamera2 Framework with Your ExoGlove Model
+# 🎯 EXOGLOVE DEPLOYMENT OPTIONS
+
+# Option 1: Official Picamera2 Demo (RECOMMENDED)
+cd ~/ExoGlove-YOLOv8
+./run_exoglove_demo.sh
+
+# Option 2: Direct Picamera2 Demo
 cd ~/picamera2/examples/imx500
-python3 exoglove_official_framework.py --model /home/wei/ExoGlove-YOLOv8/final_output/network.rpk --threshold 0.3
+python3 exoglove_imx500_demo.py --model /home/wei/ExoGlove-YOLOv8/final_output/network.rpk --threshold 0.5
 
-# IMX500 NPU Integration (Generates config + shows rpicam-vid command)
-python3 exoglove_imx500_integration.py --model /home/wei/ExoGlove-YOLOv8/final_output/network.rpk --threshold 0.3
+# Option 3: NPU with rpicam-vid
+rpicam-vid --width 640 --height 640 --mode 2028:1520:10:U --post-process-file scripts/deployment/exoglove_imx500_config.json --output /tmp/exoglove_output.h264 --timeout 0
 
-# Controls: Press 'q' to quit, 's' to save screenshot
+# Option 4: Python Picamera2
+python3 scripts/deployment/exoglove_picamera2_complete.py
+
+# 🎯 DETECTS: apple, ball, bottle, clip, glove, lid, plate, spoon, tape spool
+# Controls: Press Ctrl+C to quit
