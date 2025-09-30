@@ -13,10 +13,11 @@ python3 export_imx_pi.py
 # Then create .rpk package
 imx500-package -i best_imx_model/packerOut.zip -o final_output
 
-# Continuous Picamera2 Detection (Recommended - No timeout!)
-python3 exoglove_official_demo.py --model /home/wei/ExoGlove-YOLOv8/final_output/network.rpk --threshold 0.3
+# Official Picamera2 Framework with Your ExoGlove Model
+cd ~/picamera2/examples/imx500
+python3 exoglove_official_framework.py --model /home/wei/ExoGlove-YOLOv8/final_output/network.rpk --threshold 0.3
 
-# Save video while detecting
-python3 exoglove_official_demo.py --model /home/wei/ExoGlove-YOLOv8/final_output/network.rpk --threshold 0.3 --output /tmp/exoglove_continuous.h264
+# IMX500 NPU Integration (Generates config + shows rpicam-vid command)
+python3 exoglove_imx500_integration.py --model /home/wei/ExoGlove-YOLOv8/final_output/network.rpk --threshold 0.3
 
 # Controls: Press 'q' to quit, 's' to save screenshot
