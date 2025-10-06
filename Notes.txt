@@ -1,4 +1,11 @@
+# Connect to Pi 5 
 sshpass -p '115049' ssh wei@192.168.1.84
+
+# Connect to the server 
+ssh coder.Wu-ENGR895.main
+
+nohup yolo train data=data.yaml model=yolov8n.pt epochs=10 imgsz=640 batch=4 device=cpu > training.log 2>&1 &
+tail -f training.log
 
 # Navigate to project
 cd ExoGlove-YOLOv8
@@ -22,6 +29,7 @@ cd ~/ExoGlove-YOLOv8
 # Option 2: Direct Picamera2 Demo
 cd ~/picamera2/examples/imx500
 python3 exoglove_imx500_demo.py --model /home/wei/ExoGlove-YOLOv8/final_output/network.rpk --threshold 0.5
+python3 imx500_object_detection_demo.py --model /home/wei/ExoGlove-YOLOv8/final_output/network.rpk --threshold 0.5
 
 # Option 3: NPU with rpicam-vid
 rpicam-vid --width 640 --height 640 --mode 2028:1520:10:U --post-process-file scripts/deployment/exoglove_imx500_config.json --output /tmp/exoglove_output.h264 --timeout 0
