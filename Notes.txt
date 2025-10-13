@@ -8,6 +8,11 @@ ssh coder.Wu-ENGR895.main
 nohup yolo train data=data.yaml model=yolov8n.pt epochs=10 imgsz=640 batch=4 device=cpu > training.log 2>&1 &
 tail -f training.log
 
+# All on Mac - copy these 3 commands:
+scp coder@coder-vscode.server3.sfsu-miclab.org--wei12f8158--Wu-ENGR895:/home/coder/ExoGlove-Merge/runs/detect/train5/weights/best.pt ~/Downloads/best_train5.pt
+sshpass -p '115049' scp ~/Downloads/best_train5.pt wei@192.168.1.84:~/ExoGlove-YOLOv8/models/best_train5_$(date +%Y%m%d_%H%M%S).pt
+rm ~/Downloads/best_train5.pt
+
 # Navigate to project
 cd ExoGlove-YOLOv8
 
@@ -22,49 +27,20 @@ imx500-package -i best_imx_model/imx500_package.zip -o final_output
 
 
 # 🎯 EXOGLOVE DEPLOYMENT OPTIONS
+source imx500env/bin/activate
 
-# Option 1: Official Picamera2 Demo (RECOMMENDED)
-cd ~/ExoGlove-YOLOv8
-./run_exoglove_demo.sh
-
-# Option 2: Direct Picamera2 Demo
+# Direct Picamera2 Demo
 cd ~/picamera2/examples/imx500
 python3 exoglove_imx500_demo.py --model /home/wei/ExoGlove-YOLOv8/final_output/network.rpk --threshold 0.5
 python3 imx500_object_detection_demo.py --model /home/wei/ExoGlove-YOLOv8/final_output/network.rpk --threshold 0.5
 python3 imx500_object_detection_demo.py --model /home/wei/ExoGlove-YOLOv8/final_output/network.rpk --bbox-normalization --bbox-order xy
 
-# Option 3: NPU with rpicam-vid
-rpicam-vid --width 640 --height 640 --mode 2028:1520:10:U --post-process-file scripts/deployment/exoglove_imx500_config.json --output /tmp/exoglove_output.h264 --timeout 0
 
-# Option 4: Python Picamera2
-python3 scripts/deployment/exoglove_picamera2_complete.py
+source imx500env/bin/activate
 
-# 🎯 DETECTS: apple, ball, bottle, clip, glove, lid, plate, spoon, tape spool
-# Controls: Press Ctrl+C to quit
+python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py \
+  --model ~/sensorFusion/IMX500/yolov8n_imx_model/final_output/network.rpk \
+  --labels ~/sensorFusion/IMX500/yolov8n_imx_model/labels.txt
 
-
-
-==================
-
-wei@raspberrypi:~/ExoGlove-YOLOv8/picamera2/examples/imx500 $ python3 imx500_object_detection_demo.py --model /home/wei/ExoGlove-YOLOv8/final_output/network.rpk --bbox-normalization --bbox-order xy
-[11:20:17.713453957] [432677]  INFO Camera camera_manager.cpp:330 libcamera v0.5.2+99-bfd68f78
-[11:20:17.720495855] [432681]  INFO RPI pisp.cpp:720 libpisp version v1.2.1 981977ff21f3 29-04-2025 (14:13:50)
-[11:20:17.722964173] [432681]  INFO IPAProxy ipa_proxy.cpp:180 Using tuning file /usr/share/libcamera/ipa/rpi/pisp/imx500.json
-[11:20:17.730482275] [432681]  INFO Camera camera_manager.cpp:220 Adding camera '/base/axi/pcie@1000120000/rp1/i2c@88000/imx500@1a' for pipeline handler rpi/pisp
-[11:20:17.730565201] [432681]  INFO RPI pisp.cpp:1179 Registered camera /base/axi/pcie@1000120000/rp1/i2c@88000/imx500@1a to CFE device /dev/media2 and ISP device /dev/media0 using PiSP variant BCM2712_C0
-
-------------------------------------------------------------------------------------------------------------------
-NOTE: Loading network firmware onto the IMX500 can take several minutes, please do not close down the application.
-------------------------------------------------------------------------------------------------------------------
-
-[11:20:17.766178172] [432677]  INFO Camera camera.cpp:1215 configuring streams: (0) 640x480-XBGR8888/sRGB (1) 2028x1520-RGGB_PISP_COMP1/RAW
-[11:20:17.766440469] [432681]  INFO RPI pisp.cpp:1483 Sensor: /base/axi/pcie@1000120000/rp1/i2c@88000/imx500@1a - Selected sensor format: 2028x1520-SRGGB10_1X10/RAW - Selected CFE format: 2028x1520-PC1R/RAW
-Network Firmware Upload: 0.00bytes [00:00, ?bytes/s]QObject::moveToThread: Current thread (0x7fff6002fce0) is not the object's thread (0x7fff60221cf0).
-Cannot move to target thread (0x7fff6002fce0)
-
-qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "/home/wei/.local/lib/python3.11/site-packages/cv2/qt/plugins" even though it was found.
-This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
-
-Available platform plugins are: xcb, eglfs, linuxfb, minimal, minimalegl, offscreen, vnc, wayland-egl, wayland, wayland-xcomposite-egl, wayland-xcomposite-glx.
-
-Aborted
+python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py
+--model /usr/share/imx500-models/imx500_network_nanodet_plus_416x416_pp.rpk
