@@ -44,3 +44,11 @@ python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py \
 
 python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py
 --model /usr/share/imx500-models/imx500_network_nanodet_plus_416x416_pp.rpk
+
+python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py \
+  --model ~/ExoGlove-YOLOv8/final_output/network.rpk \
+  --labels ~/ExoGlove-YOLOv8/final_output/labels.txt \
+  --bbox-normalization \
+  --bbox-order xy \
+  --threshold 0.2 \
+  --max-detections 20
