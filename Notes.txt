@@ -30,7 +30,6 @@ imx500-package -i best_imx_model/imx500_package.zip -o final_output
 source imx500env/bin/activate
 
 # Direct Picamera2 Demo
-source imx500env/bin/activate
 python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py \
   --model ~/ExoGlove-YOLOv8/final_output/network.rpk \
   --labels ~/ExoGlove-YOLOv8/final_output/labels.txt \
@@ -44,5 +43,5 @@ python3 exoglove_imx500_with_recording.py \
   --labels ~/ExoGlove-YOLOv8/final_output/labels.txt \
   --bbox-normalization \
   --bbox-order xy \
-  --threshold 0.3 \
-  --max-detections 20
+  --threshold 0.5 \
+  --max-detections 10
