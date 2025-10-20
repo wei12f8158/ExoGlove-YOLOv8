@@ -20,7 +20,7 @@ sshpass -p '115049' scp -r wei@192.168.1.84:~/Pictures ~/Downloads/pi_pictures
 cd ExoGlove-YOLOv8
 
 # Activate environment
-source exoglove_env/bin/activate
+source venv/bin/activate
 
 # Convert to onnx
 python3 export_imx_pi.py --model models/best.pt --out best_imx_model
@@ -43,6 +43,6 @@ python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py \
 python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py \
   --model  ~/ExoGlove-YOLOv8/final_output/network.rpk \
   --labels ~/ExoGlove-YOLOv8/final_output/labels.txt \
-  --threshold 0.60 --iou 0.50 --max-detections 20
-
-
+  --postprocess nanodet \
+  --bbox-order yx \
+  --threshold 0.50 --iou 0.50 --max-detections 20
