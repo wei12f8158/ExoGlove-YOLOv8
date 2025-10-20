@@ -46,3 +46,38 @@ python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py \
   --postprocess nanodet \
   --bbox-order yx \
   --threshold 0.50 --iou 0.50 --max-detections 20
+
+
+
+
+(venv) wei@raspberrypi:~/ExoGlove-YOLOv8 $ python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py \
+  --model  ~/ExoGlove-YOLOv8/final_output/network.rpk \
+  --labels ~/ExoGlove-YOLOv8/final_output/labels.txt \
+  --postprocess nanodet \
+  --bbox-order yx \
+  --threshold 0.50 --iou 0.50 --max-detections 20
+[0:09:05.969020072] [4479]  INFO Camera camera_manager.cpp:330 libcamera v0.5.2+99-bfd68f78
+[0:09:05.976183412] [4483]  INFO RPI pisp.cpp:720 libpisp version v1.2.1 981977ff21f3 29-04-2025 (14:13:50)
+[0:09:05.978698422] [4483]  INFO IPAProxy ipa_proxy.cpp:180 Using tuning file /usr/share/libcamera/ipa/rpi/pisp/imx500.json
+[0:09:05.986436613] [4483]  INFO Camera camera_manager.cpp:220 Adding camera '/base/axi/pcie@1000120000/rp1/i2c@88000/imx500@1a' for pipeline handler rpi/pisp
+[0:09:05.986477478] [4483]  INFO RPI pisp.cpp:1179 Registered camera /base/axi/pcie@1000120000/rp1/i2c@88000/imx500@1a to CFE device /dev/media2 and ISP device /dev/media0 using PiSP variant BCM2712_C0
+
+------------------------------------------------------------------------------------------------------------------
+NOTE: Loading network firmware onto the IMX500 can take several minutes, please do not close down the application.
+------------------------------------------------------------------------------------------------------------------
+
+[0:09:06.019674808] [4479]  INFO Camera camera.cpp:1215 configuring streams: (0) 640x480-XBGR8888/sRGB (1) 2028x1520-RGGB_PISP_COMP1/RAW
+Network Firmware Upload: 0.00bytes [00:00, ?bytes/s][0:09:06.019957790] [4483]  INFO RPI pisp.cpp:1483 Sensor: /base/axi/pcie@1000120000/rp1/i2c@88000/imx500@1a - Selected sensor format: 2028x1520-SRGGB10_1X10/RAW - Selected CFE format: 2028x1520-PC1R/RAW
+Network Firmware Upload: 100%|██████████| 3.05M/3.05M [00:04<00:00, 710kbytes/s]
+/usr/lib/python3/dist-packages/picamera2/devices/imx500/postprocess_nanodet.py:23: RuntimeWarning: overflow encountered in exp
+  classes = 1 / (1 + np.exp(-classes))  # sigmoid
+Traceback (most recent call last):
+  File "/home/wei/picamera2/examples/imx500/imx500_object_detection_demo.py", line 179, in <module>
+    last_results = parse_detections(picam2.capture_metadata())
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/wei/picamera2/examples/imx500/imx500_object_detection_demo.py", line 39, in parse_detections
+    postprocess_nanodet_detection(outputs=np_outputs[0], conf=threshold, iou_thres=iou,
+  File "/usr/lib/python3/dist-packages/picamera2/devices/imx500/postprocess_nanodet.py", line 38, in postprocess_nanodet_detection
+    distances = x * anchors[..., 2, None]
+                ~~^~~~~~~~~~~~~~~~~~~~~~~
+ValueError: operands could not be broadcast together with shapes (1,0,4) (1,3598,1) 
