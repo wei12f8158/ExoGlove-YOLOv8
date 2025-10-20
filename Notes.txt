@@ -49,25 +49,21 @@ python3 exoglove_imx500_with_recording.py \
 
 
 
-wei@raspberrypi:~/ExoGlove-YOLOv8 $ python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py
-[0:06:35.816446748] [2113]  INFO Camera camera_manager.cpp:330 libcamera v0.5.2+99-bfd68f78
-[0:06:35.823517110] [2118]  INFO RPI pisp.cpp:720 libpisp version v1.2.1 981977ff21f3 29-04-2025 (14:13:50)
-[0:06:35.826017017] [2118]  INFO IPAProxy ipa_proxy.cpp:180 Using tuning file /usr/share/libcamera/ipa/rpi/pisp/imx500.json
-[0:06:35.832917137] [2118]  INFO Camera camera_manager.cpp:220 Adding camera '/base/axi/pcie@1000120000/rp1/i2c@88000/imx500@1a' for pipeline handler rpi/pisp
-[0:06:35.832959638] [2118]  INFO RPI pisp.cpp:1179 Registered camera /base/axi/pcie@1000120000/rp1/i2c@88000/imx500@1a to CFE device /dev/media0 and ISP device /dev/media1 using PiSP variant BCM2712_C0
-
-------------------------------------------------------------------------------------------------------------------
-NOTE: Loading network firmware onto the IMX500 can take several minutes, please do not close down the application.
-------------------------------------------------------------------------------------------------------------------
-
-[0:06:36.023991899] [2113]  INFO Camera camera.cpp:1215 configuring streams: (0) 640x480-XBGR8888/sRGB (1) 2028x1520-RGGB_PISP_COMP1/RAW
-[0:06:36.024215958] [2118]  INFO RPI pisp.cpp:1483 Sensor: /base/axi/pcie@1000120000/rp1/i2c@88000/imx500@1a - Selected sensor format: 2028x1520-SRGGB10_1X10/RAW - Selected CFE format: 2028x1520-PC1R/RAW
-Network Firmware Upload: 0.00bytes [00:00, ?bytes/s]QObject::moveToThread: Current thread (0x7ffeb402fce0) is not the object's thread (0x7ffeb4217fb0).
-Cannot move to target thread (0x7ffeb402fce0)
-
-qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "/home/wei/.local/lib/python3.11/site-packages/cv2/qt/plugins" even though it was found.
-This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
-
-Available platform plugins are: xcb, eglfs, linuxfb, minimal, minimalegl, offscreen, vnc, wayland-egl, wayland, wayland-xcomposite-egl, wayland-xcomposite-glx.
-
-Aborted
+(venv) wei@raspberrypi:~/ExoGlove-YOLOv8 $ python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py
+Traceback (most recent call last):
+  File "/home/wei/picamera2/examples/imx500/imx500_object_detection_demo.py", line 8, in <module>
+    from picamera2 import MappedArray, Picamera2
+  File "/usr/lib/python3/dist-packages/picamera2/__init__.py", line 11, in <module>
+    from .picamera2 import Picamera2, Preview
+  File "/usr/lib/python3/dist-packages/picamera2/picamera2.py", line 30, in <module>
+    from picamera2.encoders import Encoder, H264Encoder, MJPEGEncoder, Quality
+  File "/usr/lib/python3/dist-packages/picamera2/encoders/__init__.py", line 7, in <module>
+    from .encoder import Encoder, Quality
+  File "/usr/lib/python3/dist-packages/picamera2/encoders/encoder.py", line 13, in <module>
+    from ..request import _MappedBuffer
+  File "/usr/lib/python3/dist-packages/picamera2/request.py", line 13, in <module>
+    import simplejpeg
+  File "/usr/lib/python3/dist-packages/simplejpeg/__init__.py", line 1, in <module>
+    from ._jpeg import encode_jpeg, encode_jpeg_yuv_planes
+  File "simplejpeg/_jpeg.pyx", line 1, in init simplejpeg._jpeg
+ValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
