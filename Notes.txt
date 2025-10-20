@@ -9,9 +9,12 @@ nohup yolo train data=data.yaml model=yolov8n.pt epochs=10 imgsz=640 batch=4 dev
 tail -f training.log
 
 # All on Mac - copy these 3 commands:
-scp coder@coder-vscode.server3.sfsu-miclab.org--wei12f8158--Wu-ENGR895:/home/coder/ExoGlove-Merge/runs/detect/train5/weights/best.pt ~/Downloads/best_train5.pt
-sshpass -p '115049' scp ~/Downloads/best_train5.pt wei@192.168.1.84:~/ExoGlove-YOLOv8/models/best_train5_$(date +%Y%m%d_%H%M%S).pt
-rm ~/Downloads/best_train5.pt
+scp -r coder@coder-vscode.server3.sfsu-miclab.org--wei12f8158--Wu-ENGR895:/home/coder/ExoGlove-Merge/runs/detect/train8 ~/Downloads/
+sshpass -p '115049' ssh wei@192.168.1.84 "mkdir -p ~/ExoGlove-YOLOv8/models/train8"
+sshpass -p '115049' scp ~/Downloads/train8/weights/best.pt wei@192.168.1.84:~/ExoGlove-YOLOv8/models/train8/best.pt
+
+# Copy the whole Pictures folder
+sshpass -p '115049' scp -r wei@192.168.1.84:~/Pictures ~/Downloads/pi_pictures
 
 # Navigate to project
 cd ExoGlove-YOLOv8
@@ -37,8 +40,8 @@ python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py \
   --bbox-order xy \
   --threshold 0.5
 
-cd ~/ExoGlove-YOLOv8
-python3 exoglove_imx500_with_recording.py \
+# Fixed command - use absolute path for environment
+source ~/imx500env/bin/activate && cd ~/ExoGlove-YOLOv8 && python3 exoglove_imx500_with_recording.py \
   --model ~/ExoGlove-YOLOv8/final_output/network.rpk \
   --labels ~/ExoGlove-YOLOv8/final_output/labels.txt \
   --bbox-normalization \
