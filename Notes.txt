@@ -40,33 +40,9 @@ python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py \
   --bbox-order xy \
   --threshold 0.5
 
-# Fixed command - use absolute path for environment
-source ~/imx500env/bin/activate && cd ~/ExoGlove-YOLOv8 && python3 exoglove_imx500_with_recording.py \
-  --model ~/ExoGlove-YOLOv8/final_output/network.rpk \
+python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py \
+  --model  ~/ExoGlove-YOLOv8/final_output/network.rpk \
   --labels ~/ExoGlove-YOLOv8/final_output/labels.txt \
-  --bbox-normalization \
-  --bbox-order xy \
-  --threshold 0.5 \
-  --max-detections 10
+  --threshold 0.60 --iou 0.50 --max-detections 20
 
 
-
-
-(venv) wei@raspberrypi:~/ExoGlove-YOLOv8 $ python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py
-Traceback (most recent call last):
-  File "/home/wei/picamera2/examples/imx500/imx500_object_detection_demo.py", line 8, in <module>
-    from picamera2 import MappedArray, Picamera2
-  File "/usr/lib/python3/dist-packages/picamera2/__init__.py", line 11, in <module>
-    from .picamera2 import Picamera2, Preview
-  File "/usr/lib/python3/dist-packages/picamera2/picamera2.py", line 30, in <module>
-    from picamera2.encoders import Encoder, H264Encoder, MJPEGEncoder, Quality
-  File "/usr/lib/python3/dist-packages/picamera2/encoders/__init__.py", line 7, in <module>
-    from .encoder import Encoder, Quality
-  File "/usr/lib/python3/dist-packages/picamera2/encoders/encoder.py", line 13, in <module>
-    from ..request import _MappedBuffer
-  File "/usr/lib/python3/dist-packages/picamera2/request.py", line 13, in <module>
-    import simplejpeg
-  File "/usr/lib/python3/dist-packages/simplejpeg/__init__.py", line 1, in <module>
-    from ._jpeg import encode_jpeg, encode_jpeg_yuv_planes
-  File "simplejpeg/_jpeg.pyx", line 1, in init simplejpeg._jpeg
-ValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
