@@ -47,3 +47,31 @@ python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py \
   --threshold 0.60 --iou 0.50 --max-detections 20
 
 
+
+
+(imx500env) wei@raspberrypi:~ $ python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py \
+  --model ~/ExoGlove-YOLOv8/final_output/network.rpk \
+  --labels ~/ExoGlove-YOLOv8/final_output/labels.txt
+[0:30:33.008905553] [21653]  INFO Camera camera_manager.cpp:330 libcamera v0.5.2+99-bfd68f78
+[0:30:33.016074706] [21657]  INFO RPI pisp.cpp:720 libpisp version v1.2.1 981977ff21f3 29-04-2025 (14:13:50)
+[0:30:33.018581795] [21657]  INFO IPAProxy ipa_proxy.cpp:180 Using tuning file /usr/share/libcamera/ipa/rpi/pisp/imx500.json
+[0:30:33.027070364] [21657]  INFO Camera camera_manager.cpp:220 Adding camera '/base/axi/pcie@1000120000/rp1/i2c@88000/imx500@1a' for pipeline handler rpi/pisp
+[0:30:33.027115401] [21657]  INFO RPI pisp.cpp:1179 Registered camera /base/axi/pcie@1000120000/rp1/i2c@88000/imx500@1a to CFE device /dev/media0 and ISP device /dev/media2 using PiSP variant BCM2712_C0
+
+------------------------------------------------------------------------------------------------------------------
+NOTE: Loading network firmware onto the IMX500 can take several minutes, please do not close down the application.
+------------------------------------------------------------------------------------------------------------------
+
+[0:30:33.060190559] [21653]  INFO Camera camera.cpp:1215 configuring streams: (0) 640x480-XBGR8888/sRGB (1) 2028x1520-RGGB_PISP_COMP1/RAW
+[0:30:33.060467987] [21657]  INFO RPI pisp.cpp:1483 Sensor: /base/axi/pcie@1000120000/rp1/i2c@88000/imx500@1a - Selected sensor format: 2028x1520-SRGGB10_1X10/RAW - Selected CFE format: 2028x1520-PC1R/RAW
+Network Firmware Upload: 100%|███████████████████████████████████████████████| 3.13M/3.13M [00:07<00:00, 437kbytes/s]
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/picamera2/previews/q_gl_picamera2.py", line 420, in handle_requests
+    self.picamera2.process_requests(self)
+  File "/usr/lib/python3/dist-packages/picamera2/picamera2.py", line 1385, in process_requests
+    self.pre_callback(req)
+  File "/home/wei/picamera2/examples/imx500/imx500_object_detection_demo.py", line 79, in draw_detections
+    label = f"{labels[int(detection.category)]} ({detection.conf:.2f})"
+               ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+IndexError: list index out of range
+Aborted
