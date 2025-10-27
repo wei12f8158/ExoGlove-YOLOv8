@@ -1,5 +1,5 @@
 # Connect to Pi 5 
-sshpass -p '115049' ssh wei@192.168.1.84
+sshpass -p '115049' ssh wei@192.168.1.111
 
 # Connect to the server 
 ssh coder.Wu-ENGR895.main
@@ -7,6 +7,7 @@ ssh coder.Wu-ENGR895.main
 # Train model on the server 
 nohup yolo train data=data.yaml model=yolov8n.pt epochs=10 imgsz=640 batch=4 device=cpu > training.log 2>&1 &
 tail -f training.log
+tail -f training_continued.log
 
 # All on Mac - copy these 3 commands:
 scp -r coder@coder-vscode.server3.sfsu-miclab.org--wei12f8158--Wu-ENGR895:/home/coder/ExoGlove-Merge/runs/detect/train8 ~/Downloads/
