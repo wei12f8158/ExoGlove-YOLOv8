@@ -15,7 +15,7 @@ sshpass -p '115049' ssh wei@192.168.1.84 "mkdir -p ~/ExoGlove-YOLOv8/models/trai
 sshpass -p '115049' scp ~/Downloads/train8/weights/best.pt wei@192.168.1.84:~/ExoGlove-YOLOv8/models/train8/best.pt
 
 # Copy the whole Pictures folder
-sshpass -p '115049' scp -r wei@192.168.1.84:~/Pictures ~/Downloads/pi_pictures
+sshpass -p '115049' scp -r wei@192.168.1.111:~/Pictures ~/Downloads/pi_pictures
 
 # === ON PI ===
 cd ~/ExoGlove-YOLOv8
@@ -35,3 +35,9 @@ python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py \
   --bbox-normalization \
   --bbox-order xy \
   --threshold 0.5
+
+# On Pi
+cd ~/ExoGlove-YOLOv8
+source imx500env/bin/activate
+chmod +x measure_all_performance.py
+python3 measure_all_performance.py
