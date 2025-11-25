@@ -37,3 +37,10 @@ python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py \
   --bbox-normalization \
   --bbox-order xy \
   --threshold 0.5
+
+python3 ~/ExoGlove-YOLOv8/imx500_object_detection_demo.py \
+  --model ~/ExoGlove-YOLOv8/final_output/network.rpk \
+  --labels ~/ExoGlove-YOLOv8/final_output/labels.txt \
+  --bbox-normalization \
+  --bbox-order xy \
+  --threshold 0.5
