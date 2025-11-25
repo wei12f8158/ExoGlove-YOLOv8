@@ -5,14 +5,16 @@ sshpass -p '115049' ssh wei@192.168.1.111
 ssh coder.Wu-ENGR895.main
 
 # Train model on the server 
-nohup yolo train data=data.yaml model=yolov8n.pt epochs=10 imgsz=640 batch=4 device=cpu > training.log 2>&1 &
+nohup yolo train data=data.yaml model=yolo11n.pt epochs=55 imgsz=640 batch=4 device=cpu > training.log 2>&1 &
 tail -f training.log
-tail -f training_continued.log
 
 # All on Mac - copy these 3 commands:
-scp -r coder@coder-vscode.server3.sfsu-miclab.org--wei12f8158--Wu-ENGR895:/home/coder/ExoGlove-Merge/runs/detect/train8 ~/Downloads/
+scp -r coder.Wu-ENGR895.main:/home/coder/ExoGlove-Merge/runs/detect/train11 ~/Downloads/
 sshpass -p '115049' ssh wei@192.168.1.84 "mkdir -p ~/ExoGlove-YOLOv8/models/train8"
 sshpass -p '115049' scp ~/Downloads/train8/weights/best.pt wei@192.168.1.84:~/ExoGlove-YOLOv8/models/train8/best.pt
+source venv/bin/activate
+python plot_training_results.py --csv ~/Downloads/train11/results.csv
+
 
 # Copy the whole Pictures folder
 sshpass -p '115049' scp -r wei@192.168.1.111:~/Pictures ~/Downloads/pi_pictures
@@ -35,9 +37,3 @@ python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py \
   --bbox-normalization \
   --bbox-order xy \
   --threshold 0.5
-
-# On Pi
-cd ~/ExoGlove-YOLOv8
-source imx500env/bin/activate
-chmod +x measure_all_performance.py
-python3 measure_all_performance.py
