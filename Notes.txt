@@ -1,5 +1,6 @@
 # Connect to Pi 5 
 sshpass -p '115049' ssh wei@192.168.1.111
+sshpass -p '115049' ssh wei@172.20.10.3
 
 # Connect to the server 
 ssh coder.Wu-ENGR895.main
@@ -9,7 +10,7 @@ nohup yolo train data=data.yaml model=yolo11n.pt epochs=55 imgsz=640 batch=4 dev
 tail -f training.log
 
 # All on Mac - copy these 3 commands:
-scp -r coder.Wu-ENGR895.main:/home/coder/ExoGlove-Merge/runs/detect/train11 ~/Downloads/
+scp -r coder.Wu-ENGR895.main:/home/coder/ExoGlove-Merge/runs/detect/train12 ~/Downloads/
 sshpass -p '115049' ssh wei@192.168.1.84 "mkdir -p ~/ExoGlove-YOLOv8/models/train8"
 sshpass -p '115049' scp ~/Downloads/train8/weights/best.pt wei@192.168.1.84:~/ExoGlove-YOLOv8/models/train8/best.pt
 source venv/bin/activate
@@ -17,7 +18,7 @@ python plot_training_results.py --csv ~/Downloads/train11/results.csv
 
 
 # Copy the whole Pictures folder
-sshpass -p '115049' scp -r wei@192.168.1.111:~/Pictures ~/Downloads/pi_pictures
+sshpass -p '115049' scp -r wei@172.20.10.3:~/Videos ~/Downloads/pi_videos
 
 # === ON PI ===
 cd ~/ExoGlove-YOLOv8
@@ -31,13 +32,6 @@ imx500-package -i models/best_imx_model/packerOut.zip -o final_output
 
 # 3. Deploy
 source imx500env/bin/activate
-python3 ~/picamera2/examples/imx500/imx500_object_detection_demo.py \
-  --model ~/ExoGlove-YOLOv8/final_output/network.rpk \
-  --labels ~/ExoGlove-YOLOv8/final_output/labels.txt \
-  --bbox-normalization \
-  --bbox-order xy \
-  --threshold 0.5
-
 python3 imx500_detection.py \
   --model ~/ExoGlove-YOLOv8/final_output/network.rpk \
   --labels ~/ExoGlove-YOLOv8/final_output/labels.txt \
