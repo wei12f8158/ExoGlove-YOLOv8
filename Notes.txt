@@ -29,7 +29,7 @@ imx500-package -i models/best_imx_model/packerOut.zip -o final_output
 
 # 3. Deploy
 source imx500env/bin/activate
-python3 imx500_detection.py \
+python3 imx500_detection.py --record \
   --model ~/ExoGlove-YOLOv8/final_output/network.rpk \
   --labels ~/ExoGlove-YOLOv8/final_output/labels.txt \
   --bbox-normalization \
